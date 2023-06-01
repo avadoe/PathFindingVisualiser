@@ -11,8 +11,52 @@ def reconstruct_path(came_from, current, draw):
         current = came_from[current]
         current.make_path()
         draw()
+        
+def djikstra(draw, grid, start, end):
+    count = 0
+    pq = queue.PriorityQueue()
+    pq.put((0, count, start)) # (distance, count, node)
+    origin = {}
+    distance = {cell : float('inf') for row in grid for cell in row}
+    distance[start] = 0
+    
+    in_pq = {start}
+    
+    while not pq.empty():
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                
+        current = pq.get()[2]
+        in_pq.remove(current)
+        
+        if current == end:
+            reconstruct_path(origin, end, draw)
+            end.make_end()
+            start.make_start()
+            return True
+        
+        for neighbor in current.neighbors:
+            temp_distance = distance[current] + 1
+            
+            if temp_distance < distance[neighbor]:
+                origin[neighbor] = current
+                distance[neighbor] = temp_distance
+                
+                if neighbor not in pq:
+                    count += 1 
+                    pq.put((distance[neighbor], count, neighbor))
+                    in_pq.add(neighbor)
+                    neighbor.make_open()
+            
+        draw()
+        
+        if current != start:
+            current.make_closed()
+            
+    return False
 
-def algorithm(draw, grid, start, end):
+def astar(draw, grid, start, end):
     count = 0
     pq = queue.PriorityQueue()
     pq.put((0, count, start)) # (total_score_with_heuristic, count, node)
