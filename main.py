@@ -5,7 +5,7 @@ from algorithms import heuristic, djikstra, astar
 
 DIM = 800
 WIN = pygame.display.set_mode((DIM, DIM))
-pygame.display.set_caption('A*')
+pygame.display.set_caption('Path Finding Visualiser')
 
 class Cell:
     def __init__(self, row, col, width, total_rows):
