@@ -43,7 +43,7 @@ def djikstra(draw, grid, start, end):
                 origin[neighbor] = current
                 distance[neighbor] = temp_distance
                 
-                if neighbor not in pq:
+                if neighbor not in in_pq:
                     count += 1 
                     pq.put((distance[neighbor], count, neighbor))
                     in_pq.add(neighbor)

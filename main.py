@@ -162,7 +162,7 @@ def main(window, dim):
                     for row in grid:
                         for cell in row:
                             cell.update_neighbors(grid)
-                    astar(lambda : draw(window=window, grid=grid, total_rows=TOTAL_ROWS, dim=dim), grid, start, end)
+                    djikstra(lambda : draw(window=window, grid=grid, total_rows=TOTAL_ROWS, dim=dim), grid, start, end)
                     
             
     pygame.quit()
